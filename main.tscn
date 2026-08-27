@@ -123,11 +123,20 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer" unique_id=2000831541]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer" unique_id=794811754]
+layout_mode = 2
+
+[node name="IronTotalLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2000831541]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Iron:"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CoalTotalLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1680049810]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer" unique_id=1813464769]
 texture_filter = 1
@@ -138,10 +147,18 @@ texture = ExtResource("1_qsp4k")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="Button" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer" unique_id=1692733712]
+[node name="MineButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer" unique_id=1692733712]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-text = "MINE"
+text = "MINE IRON"
+
+[node name="MineCoalButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer" unique_id=1032006128]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = "MINE COAL"
 
 [node name="Upgrades" type="PanelContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=844280347]
 layout_mode = 2
@@ -169,26 +186,31 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ResetButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1672551653]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Reset"
 
 [node name="SpeedUpgradeButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1868737431]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 text = "Speed"
 
 [node name="PassiveOutputButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1830355551]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 text = "Passive"
 
 [node name="OutputUpgradeButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1961417529]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 text = "Output"
 
 [node name="MaxedOutputLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/OutputUpgradeButton" unique_id=704637368]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -202,17 +224,33 @@ offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1486491023]
+[node name="CoalMinerUnlockButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1772461128]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Unlock Coal Miner"
+
+[node name="CoalMinerUpgradeButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=282194632]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Coal Miner Upgrade"
+
+[node name="MineAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1486491023]
+unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_ruth0")
 
 [node name="PassiveOutputTimer" type="Timer" parent="." unique_id=1578449357]
 autostart = true
 ignore_time_scale = true
 
-[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/MineButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/MineCoalButton" to="." method="_on_mine_coal_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/HBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/SpeedUpgradeButton" to="." method="_on_speed_upgrade_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/PassiveOutputButton" to="." method="_on_passive_output_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/OutputUpgradeButton" to="." method="_on_output_upgrade_button_pressed"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/CoalMinerUnlockButton" to="." method="_on_coal_miner_unlock_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/CoalMinerUpgradeButton" to="." method="_on_coal_miner_upgrade_button_pressed"]
+[connection signal="animation_finished" from="MineAnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="PassiveOutputTimer" to="." method="_on_passive_output_timer_timeout"]
