@@ -1,0 +1,218 @@
+[gd_scene format=3 uid="uid://cqow47bch5ocs"]
+
+[ext_resource type="Script" uid="uid://dt2ofan62emnk" path="res://main.gd" id="1_kq58d"]
+[ext_resource type="Texture2D" uid="uid://bp303jl84keoq" path="res://Mine2/MineAnim2.png" id="1_qsp4k"]
+[ext_resource type="Texture2D" uid="uid://dsdtu6ur7mm74" path="res://Mine2/MineAnim3.png" id="2_kq58d"]
+[ext_resource type="Texture2D" uid="uid://uyj27chgw804" path="res://Mine2/MineAnim4.png" id="3_seu75"]
+[ext_resource type="Texture2D" uid="uid://bew0jbxjpwj53" path="res://Mine2/MineAnim5.png" id="4_htxhm"]
+[ext_resource type="Texture2D" uid="uid://j4av2go76ikj" path="res://Mine2/MineAnim6.png" id="5_jq2sk"]
+[ext_resource type="Texture2D" uid="uid://bfd5v5x8xrc2b" path="res://Mine2/MineAnim7.png" id="6_4k2k6"]
+[ext_resource type="Texture2D" uid="uid://4wsgayxf4g6c" path="res://Mine2/MineAnim8.png" id="7_0rl1p"]
+[ext_resource type="Texture2D" uid="uid://dip62llwoa4ai" path="res://Mine2/MineAnim9.png" id="8_ok6jj"]
+[ext_resource type="Texture2D" uid="uid://dt71wcu5h1bu" path="res://Mine2/MineAnim11.png" id="9_facbu"]
+[ext_resource type="Texture2D" uid="uid://d3rj71v5agkfb" path="res://Mine2/MineAnim12.png" id="10_b1qrp"]
+[ext_resource type="Texture2D" uid="uid://buvewb0rt337b" path="res://Mine2/MineAnim13.png" id="11_come4"]
+[ext_resource type="Texture2D" uid="uid://da2u8p8najlps" path="res://Mine2/MineAnim14.png" id="12_h8e4i"]
+[ext_resource type="Texture2D" uid="uid://c5l31xroud6f6" path="res://Mine2/MineAnim15.png" id="13_4lmeg"]
+[ext_resource type="Texture2D" uid="uid://beg4djtjqccdt" path="res://Mine2/MineAnim16.png" id="14_0cp0l"]
+[ext_resource type="Texture2D" uid="uid://bar2moh8v8f1h" path="res://Mine2/MineAnim17.png" id="15_d2t1y"]
+[ext_resource type="Texture2D" uid="uid://b1n1npegaa01p" path="res://Mine2/MineAnim18.png" id="16_gngh3"]
+[ext_resource type="Texture2D" uid="uid://dmrfy1lbnfutu" path="res://Mine2/MineAnim19.png" id="17_0n3wm"]
+[ext_resource type="Texture2D" uid="uid://v631wfuq45ra" path="res://Mine2/MineAnim20.png" id="18_qnost"]
+[ext_resource type="Texture2D" uid="uid://dkjd0fhja1218" path="res://Mine2/MineAnim21.png" id="19_wnkbs"]
+[ext_resource type="Texture2D" uid="uid://cfe33oq3odjtp" path="res://Mine2/MineAnim22.png" id="20_f6a44"]
+[ext_resource type="Texture2D" uid="uid://bxa2opab2b2ta" path="res://Mine2/MineAnim23.png" id="21_0cbny"]
+[ext_resource type="Texture2D" uid="uid://hv601v8645nn" path="res://Mine2/MineAnim24.png" id="22_hrvbo"]
+[ext_resource type="Texture2D" uid="uid://c1q550mfmhnqy" path="res://Mine2/MineAnim25.png" id="23_uypp3"]
+[ext_resource type="Texture2D" uid="uid://c0wb13ce7ono1" path="res://Mine2/MineAnim26.png" id="24_blkrb"]
+[ext_resource type="Texture2D" uid="uid://c4d2dlygxi1ot" path="res://Mine2/MineAnim27.png" id="25_abqjc"]
+[ext_resource type="Texture2D" uid="uid://cas2ng1rsgwu0" path="res://Mine2/MineAnim28.png" id="26_6iyjs"]
+[ext_resource type="Texture2D" uid="uid://ci2idf7qtdm6m" path="res://Mine2/MineAnim29.png" id="27_4w656"]
+[ext_resource type="Texture2D" uid="uid://bafuk50w4y3ww" path="res://Mine2/MineAnim30.png" id="28_e71vb"]
+[ext_resource type="Texture2D" uid="uid://dgg1la5f70l36" path="res://Mine2/MineAnim31.png" id="29_rnkwl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a512i"]
+bg_color = Color(0.4233313, 0.53099215, 0.5612098, 1)
+
+[sub_resource type="Animation" id="Animation_vke2r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/TextureRect:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_qsp4k")]
+}
+
+[sub_resource type="Animation" id="Animation_uit24"]
+resource_name = "mine"
+length = 3.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/TextureRect:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.2, 1.3, 1.4, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_qsp4k"), ExtResource("1_qsp4k"), ExtResource("1_qsp4k"), ExtResource("2_kq58d"), ExtResource("3_seu75"), ExtResource("4_htxhm"), ExtResource("5_jq2sk"), ExtResource("6_4k2k6"), ExtResource("7_0rl1p"), ExtResource("8_ok6jj"), ExtResource("9_facbu"), ExtResource("10_b1qrp"), ExtResource("11_come4"), ExtResource("12_h8e4i"), ExtResource("13_4lmeg"), ExtResource("14_0cp0l"), ExtResource("15_d2t1y"), ExtResource("16_gngh3"), ExtResource("17_0n3wm"), ExtResource("18_qnost"), ExtResource("19_wnkbs"), ExtResource("20_f6a44"), ExtResource("21_0cbny"), ExtResource("22_hrvbo"), ExtResource("23_uypp3"), ExtResource("24_blkrb"), ExtResource("25_abqjc"), ExtResource("26_6iyjs"), ExtResource("27_4w656"), ExtResource("28_e71vb"), ExtResource("29_rnkwl")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ruth0"]
+_data = {
+&"RESET": SubResource("Animation_vke2r"),
+&"mine": SubResource("Animation_uit24")
+}
+
+[node name="Main" type="Control" unique_id=1214291982]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kq58d")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=740855976]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=1743304568]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer" unique_id=630100229]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer" unique_id=116887052]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="MineSpace" type="PanelContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=55106456]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_a512i")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace" unique_id=872225591]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer" unique_id=1597688748]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer" unique_id=2000831541]
+layout_mode = 2
+text = "Iron:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer" unique_id=1813464769]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+texture = ExtResource("1_qsp4k")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Button" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer" unique_id=1692733712]
+layout_mode = 2
+size_flags_vertical = 3
+text = "MINE"
+
+[node name="Upgrades" type="PanelContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=844280347]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_a512i")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades" unique_id=154641284]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer" unique_id=116856608]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=16171141]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/HBoxContainer" unique_id=811836269]
+layout_mode = 2
+text = "Upgrades"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResetButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1672551653]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Reset"
+
+[node name="SpeedUpgradeButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1868737431]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Speed"
+
+[node name="PassiveOutputButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1830355551]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Passive"
+
+[node name="OutputUpgradeButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1961417529]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Output"
+
+[node name="MaxedOutputLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/OutputUpgradeButton" unique_id=704637368]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -33.5
+offset_top = -30.0
+offset_right = 33.5
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1486491023]
+libraries/ = SubResource("AnimationLibrary_ruth0")
+
+[node name="PassiveOutputTimer" type="Timer" parent="." unique_id=1578449357]
+autostart = true
+ignore_time_scale = true
+
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/HBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/SpeedUpgradeButton" to="." method="_on_speed_upgrade_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/PassiveOutputButton" to="." method="_on_passive_output_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/OutputUpgradeButton" to="." method="_on_output_upgrade_button_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="PassiveOutputTimer" to="." method="_on_passive_output_timer_timeout"]
