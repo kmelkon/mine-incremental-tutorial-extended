@@ -2,17 +2,14 @@ extends Control
 
 @onready var mine_animation_player: AnimationPlayer = %MineAnimationPlayer
 @onready var mine_label: Label = %IronTotalLabel
-@onready var output_upgrade_button: Button = %OutputUpgradeButton
 @onready var speed_upgrade_button: Button = %SpeedUpgradeButton
 @onready var reset_button: Button = %ResetButton
-@onready var maxed_output_label: Label = %MaxedOutputLabel
 @onready var passive_output_button: Button = %PassiveOutputButton
 @onready var passive_output_timer: Timer = $PassiveOutputTimer
 @onready var coal_total_label: Label = %CoalTotalLabel
 @onready var coal_miner_unlock_button: Button = %CoalMinerUnlockButton
 @onready var coal_miner_upgrade_button: Button = %CoalMinerUpgradeButton
 @onready var mine_coal_button: Button = %MineCoalButton
-@onready var iron_output_upgrade_button_control: UpgradeButtonControl = %IronOutputUpgradeButtonControl
 
 var game_data: GameData = GameData.new()
 var upgrade_data: UpgradeData = UpgradeData.new()
@@ -46,9 +43,6 @@ func _process(delta: float) -> void:
 	if coal_miner_unlocked:
 		coal_miner_unlock_button.disabled = true
 		
-	if output == output_max:
-		output_upgrade_button.disabled = true
-	
 func _on_button_pressed() -> void:
 	mine_animation_player.play("mine")
 
@@ -83,10 +77,7 @@ func update_text():
 		coal_total_label.text = "Coal:" + str(game_data.resources["coal"])
 	coal_miner_unlock_button.text = "Coal Miner Unlock \nPrice: "+ str(coal_miner_unlock_cost)
 	coal_miner_upgrade_button.text = "Coal Miner Upgrade \nPrice: "+ str(coal_miner_upgrade_cost["iron"]) + " iron + " + str(coal_miner_upgrade_cost["coal"]) + " coal" 
-	output_upgrade_button.text = "Output \nPrice:"+ str(output_cost)+"\n Output: " + str(output) + "/" + str(output_max)
 	speed_upgrade_button.text = "Speed \nPrice:"+ str(speed_cost)+"\n Speed: " + str(speed)
-	if output == output_max:
-		maxed_output_label.text = "MAXED"
 	passive_output_button.text = "Passive Output\nCost: "+ str(passive_output_cost)+"\n Passive output: +" + str(passive_output)+ "/" + str(passive_output_time) + "sec"
 	
 
