@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://osc4al1hvgoh"]
+
+[ext_resource type="Script" uid="uid://hrkwtyrjlkek" path="res://upgrade_button_control.gd" id="1_3t3ol"]
+
+[node name="UpgradeButtonControl" type="Control" unique_id=574934227]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_3t3ol")
+
+[node name="Button" type="Button" parent="." unique_id=272421976]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+text = "UPGRADE"
+
+[node name="UpgradeMaxedLabel" type="Label" parent="Button" unique_id=1841832728]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -33.5
+offset_top = -30.0
+offset_right = 33.5
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

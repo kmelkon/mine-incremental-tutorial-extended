@@ -14,6 +14,7 @@ extends Control
 @onready var mine_coal_button: Button = %MineCoalButton
 
 var game_data: GameData = GameData.new()
+var upgrade_data: UpgradeData = UpgradeData.new()
 
 var output_cost = 2
 var speed_cost = 2
@@ -34,8 +35,7 @@ var coal_miner_unlocked = false
 
 func _ready() -> void:
 	game_data.resources_changed.connect(_on_resources_changed)
-
-	
+	upgrade_data.upgrade_bought.connect(_on_upgrade_bought)
 	update_text()
 
 func _process(delta: float) -> void:
@@ -133,3 +133,19 @@ func _on_mine_coal_button_pressed() -> void:
 	
 func _on_resources_changed() -> void:
 	update_text()
+
+func _on_upgrade_bought() -> void:
+	print("upgrade bought")
+	pass
+
+func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> void:
+	match upgrade_id:
+		&"pickaxe":
+			# main asks upgrade data: "how much does a pick axe cost?"
+			# main asks game data: "can player afford this upgrade?"
+			if game_data.can_spend_resource("iron", upgrade_data.upgrades["pickaxe"]["cost"]["iron"]):
+				# main spends iron (or whatever is needed
+				game_data.spend_resource("iron", upgrade_data.upgrades["pickaxe"]["cost"]["iron"])
+				# main tells upgrade data: buy upgrade with this upgrade id
+				upgrade_data.buy_upgrade(upgrade_id)
+				print("pickaxe BOUGHT!")
