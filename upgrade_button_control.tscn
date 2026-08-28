@@ -12,6 +12,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_3t3ol")
+upgrade_id = null
 
 [node name="Button" type="Button" parent="." unique_id=272421976]
 layout_mode = 1

@@ -12,6 +12,7 @@ extends Control
 @onready var coal_miner_unlock_button: Button = %CoalMinerUnlockButton
 @onready var coal_miner_upgrade_button: Button = %CoalMinerUpgradeButton
 @onready var mine_coal_button: Button = %MineCoalButton
+@onready var iron_output_upgrade_button_control: UpgradeButtonControl = %IronOutputUpgradeButtonControl
 
 var game_data: GameData = GameData.new()
 var upgrade_data: UpgradeData = UpgradeData.new()
@@ -35,7 +36,10 @@ var coal_miner_unlocked = false
 
 func _ready() -> void:
 	game_data.resources_changed.connect(_on_resources_changed)
-	upgrade_data.upgrade_bought.connect(_on_upgrade_bought)
+	# this will set up every upgrade button we add in the future instead of doing it manually one by one like it's 1990
+	for node in get_tree().get_nodes_in_group("upgrade_buttons"):
+		var upgrade_button := node as UpgradeButtonControl
+		upgrade_button.setup(upgrade_data)
 	update_text()
 
 func _process(delta: float) -> void:
@@ -120,7 +124,7 @@ func _on_coal_miner_unlock_button_pressed() -> void:
 func _on_coal_miner_upgrade_button_pressed() -> void:
 	if game_data.can_spend_resource("iron", coal_miner_upgrade_cost["iron"]) and game_data.can_spend_resource("coal", coal_miner_upgrade_cost["coal"]):
 		game_data.spend_resource("iron", coal_miner_upgrade_cost["iron"])
-		game_data.spend_resource("iron", coal_miner_upgrade_cost["coal"])
+		game_data.spend_resource("coal", coal_miner_upgrade_cost["coal"])
 		coal_miner_upgrade_cost["iron"] += 50
 		coal_miner_upgrade_cost["coal"] += 50
 		coal_output += 10
@@ -134,18 +138,22 @@ func _on_mine_coal_button_pressed() -> void:
 func _on_resources_changed() -> void:
 	update_text()
 
-func _on_upgrade_bought() -> void:
-	print("upgrade bought")
-	pass
 
 func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> void:
+	var cost = upgrade_data.get_upgrade_cost(upgrade_id)
+	
 	match upgrade_id:
 		&"pickaxe":
 			# main asks upgrade data: "how much does a pick axe cost?"
 			# main asks game data: "can player afford this upgrade?"
-			if game_data.can_spend_resource("iron", upgrade_data.upgrades["pickaxe"]["cost"]["iron"]):
+			if game_data.can_spend_resource("iron", cost):
 				# main spends iron (or whatever is needed
-				game_data.spend_resource("iron", upgrade_data.upgrades["pickaxe"]["cost"]["iron"])
+				game_data.spend_resource("iron", cost)
 				# main tells upgrade data: buy upgrade with this upgrade id
 				upgrade_data.buy_upgrade(upgrade_id)
 				print("pickaxe BOUGHT!")
+		&"iron_output":
+			if game_data.can_spend_resource("iron", cost):
+				game_data.spend_resource("iron", cost)
+				upgrade_data.buy_upgrade(upgrade_id)
+				print("IRON OUTPUT BOUGHT")
