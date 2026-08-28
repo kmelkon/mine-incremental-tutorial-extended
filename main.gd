@@ -13,10 +13,8 @@ extends Control
 @onready var coal_miner_upgrade_button: Button = %CoalMinerUpgradeButton
 @onready var mine_coal_button: Button = %MineCoalButton
 
-var resources = {
-	"iron": 1000,
-	"coal": 1000
-}
+var game_data: GameData = GameData.new()
+
 var output_cost = 2
 var speed_cost = 2
 var passive_output_cost = 2
@@ -31,25 +29,34 @@ var coal_miner_upgrade_cost = {
 	"iron": 100,
 	"coal": 50
 }
+var coal_miner_unlocked = false
 
 
 func _ready() -> void:
-	if output == output_max:
-			output_upgrade_button.disabled = true
+	game_data.resources_changed.connect(_on_resources_changed)
+
+	
 	update_text()
+
+func _process(delta: float) -> void:
+	if coal_miner_unlocked:
+		coal_miner_unlock_button.disabled = true
+		
+	if output == output_max:
+		output_upgrade_button.disabled = true
 	
 func _on_button_pressed() -> void:
 	mine_animation_player.play("mine")
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	resources["iron"] += output
+	game_data.add_resource("iron", output)
 	update_text()
 
 
 func _on_output_upgrade_button_pressed() -> void:
-	if resources["iron"] >= output_cost:
-		resources["iron"] -= output_cost
+	if game_data.can_spend_resource("iron", output_cost):
+		game_data.spend_resource("iron", output_cost)
 		output = output + 1
 		output_cost += 1
 		if output == output_max:
@@ -57,15 +64,15 @@ func _on_output_upgrade_button_pressed() -> void:
 		update_text()
 
 func _on_speed_upgrade_button_pressed() -> void:
-	if resources["iron"] >= speed_cost:
-		resources["iron"] -= speed_cost
+	if game_data.can_spend_resource("iron", speed_cost):
+		game_data.spend_resource("iron", speed_cost)
 		speed += 1
 		mine_animation_player.speed_scale = speed
 		update_text()
 		
 
 func _on_reset_button_pressed() -> void:
-	resources["iron"] = 0
+	game_data.reset()
 	output_cost = 2
 	speed_cost = 2
 	speed = 1
@@ -77,9 +84,9 @@ func _on_reset_button_pressed() -> void:
 	update_text()
 
 func update_text():
-	mine_label.text = "Iron:" + str(resources["iron"])
-	if resources["coal"] > 0:
-		coal_total_label.text = "Coal:" + str(resources["coal"])
+	mine_label.text = "Iron:" + str(game_data.resources["iron"])
+	if coal_miner_unlocked:
+		coal_total_label.text = "Coal:" + str(game_data.resources["coal"])
 	coal_miner_unlock_button.text = "Coal Miner Unlock \nPrice: "+ str(coal_miner_unlock_cost)
 	coal_miner_upgrade_button.text = "Coal Miner Upgrade \nPrice: "+ str(coal_miner_upgrade_cost["iron"]) + " iron + " + str(coal_miner_upgrade_cost["coal"]) + " coal" 
 	output_upgrade_button.text = "Output \nPrice:"+ str(output_cost)+"\n Output: " + str(output) + "/" + str(output_max)
@@ -90,30 +97,30 @@ func update_text():
 	
 
 func _on_passive_output_button_pressed() -> void:
-	if resources["iron"] >= passive_output_cost:
-		resources["iron"] -= passive_output_cost # charge you
+	if game_data.can_spend_resource("iron", passive_output_cost):
+		game_data.spend_resource("iron", passive_output_cost)
 		passive_output_cost += 1 # increase the cost
 		passive_output += 1
 		passive_output_timer.start(passive_output_time)
 		update_text() 
 	
 func _on_passive_output_timer_timeout() -> void:
-	resources["iron"] += passive_output
+	game_data.add_resource("iron", passive_output)
 	update_text()
 
 
 func _on_coal_miner_unlock_button_pressed() -> void:
-	if resources["iron"] >= coal_miner_unlock_cost:
-		resources["iron"] -= coal_miner_unlock_cost # charge you
-		passive_output_cost += 1
+	if game_data.can_spend_resource("iron", coal_miner_unlock_cost) and coal_miner_unlocked == false:
+		game_data.spend_resource("iron", coal_miner_unlock_cost)
 		coal_output += 1
 		mine_coal_button.visible = true
+		coal_miner_unlocked = true
 		update_text()
 
 func _on_coal_miner_upgrade_button_pressed() -> void:
-	if resources["iron"] >= coal_miner_upgrade_cost["iron"] and resources["coal"] >= coal_miner_upgrade_cost["coal"]:
-		resources["iron"] -= coal_miner_upgrade_cost["iron"] # charge you
-		resources["coal"] -= coal_miner_upgrade_cost["coal"] # charge you
+	if game_data.can_spend_resource("iron", coal_miner_upgrade_cost["iron"]) and game_data.can_spend_resource("coal", coal_miner_upgrade_cost["coal"]):
+		game_data.spend_resource("iron", coal_miner_upgrade_cost["iron"])
+		game_data.spend_resource("iron", coal_miner_upgrade_cost["coal"])
 		coal_miner_upgrade_cost["iron"] += 50
 		coal_miner_upgrade_cost["coal"] += 50
 		coal_output += 10
@@ -121,5 +128,8 @@ func _on_coal_miner_upgrade_button_pressed() -> void:
 
 
 func _on_mine_coal_button_pressed() -> void:
-	resources["coal"] += coal_output
+	game_data.add_resource("coal", coal_output)
+	update_text()
+	
+func _on_resources_changed() -> void:
 	update_text()
