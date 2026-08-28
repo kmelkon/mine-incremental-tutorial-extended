@@ -17,7 +17,7 @@ func refresh() -> void:
 	var upgrade = upgrade_data.upgrades[upgrade_id]
 	button.text = "%s\nPrice: %s iron\nLevel: %s" % [
 		upgrade["name"],
-		snapped(upgrade["cost"]["iron"], 0.01),
+		upgrade["cost"]["iron"],
 		upgrade["level"],
 	]
 

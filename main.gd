@@ -57,16 +57,6 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	game_data.add_resource("iron", output)
 	update_text()
 
-
-func _on_output_upgrade_button_pressed() -> void:
-	if game_data.can_spend_resource("iron", output_cost):
-		game_data.spend_resource("iron", output_cost)
-		output = output + 1
-		output_cost += 1
-		if output == output_max:
-			output_upgrade_button.disabled = true
-		update_text()
-
 func _on_speed_upgrade_button_pressed() -> void:
 	if game_data.can_spend_resource("iron", speed_cost):
 		game_data.spend_resource("iron", speed_cost)
@@ -156,4 +146,5 @@ func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> voi
 			if game_data.can_spend_resource("iron", cost):
 				game_data.spend_resource("iron", cost)
 				upgrade_data.buy_upgrade(upgrade_id)
+				output += 1
 				print("IRON OUTPUT BOUGHT")

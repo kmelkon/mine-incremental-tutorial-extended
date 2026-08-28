@@ -211,28 +211,6 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Passive"
 
-[node name="OutputUpgradeButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1961417529]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-text = "Output"
-
-[node name="MaxedOutputLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/OutputUpgradeButton" unique_id=704637368]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -33.5
-offset_top = -30.0
-offset_right = 33.5
-offset_bottom = -7.0
-grow_horizontal = 2
-grow_vertical = 0
-
 [node name="CoalMinerUnlockButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1772461128]
 unique_name_in_owner = true
 visible = false
@@ -265,7 +243,6 @@ ignore_time_scale = true
 [connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/IronOutputUpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/SpeedUpgradeButton" to="." method="_on_speed_upgrade_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/PassiveOutputButton" to="." method="_on_passive_output_button_pressed"]
-[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/OutputUpgradeButton" to="." method="_on_output_upgrade_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/CoalMinerUnlockButton" to="." method="_on_coal_miner_unlock_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/CoalMinerUpgradeButton" to="." method="_on_coal_miner_upgrade_button_pressed"]
 [connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/UpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
