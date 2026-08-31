@@ -15,11 +15,15 @@ func setup(data: UpgradeData) -> void:
 
 func refresh() -> void:
 	var upgrade = upgrade_data.upgrades[upgrade_id]
+	var is_maxed = upgrade_data.is_upgrade_maxed(upgrade_id)
+	
 	button.text = "%s\nPrice: %s iron\nLevel: %s" % [
 		upgrade["name"],
 		upgrade["cost"]["iron"],
 		upgrade["level"],
 	]
+	
+	button.disabled = is_maxed
 
 func _on_upgrade_bought(bought_id: StringName) -> void:
 	# when an upgrade is bought and it matches this instance's upgrade_id then refresh the text

@@ -229,6 +229,7 @@ size_flags_vertical = 3
 text = "Coal Miner Upgrade"
 
 [node name="UpgradeButtonControl" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1706843746 groups=["upgrade_buttons"] instance=ExtResource("3_htxhm")]
+visible = false
 layout_mode = 2
 upgrade_id = &"pickaxe"
 

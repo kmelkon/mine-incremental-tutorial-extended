@@ -56,7 +56,20 @@ func get_upgrade_cost(upgrade_id: StringName) -> int:
 		&"iron_mine_speed":
 			return upgrades["iron_mine_speed"]["cost"]["iron"]
 	return -1
+
+func is_upgrade_maxed(upgrade_id: StringName) -> bool:
+	var upgrade = upgrades[upgrade_id]
+	
+	if not upgrade.has("max_level"):
+		return false
+	
+	return upgrade["level"] >= upgrade["max_level"]
 	
 func reset_upgrades() -> void:
 #	reset all upgrade data to  initial here
 	pass
+	
+#	Migrate passive output.
+#	Migrate coal upgrades, since they will teach you multi-resource costs.
+#	Add save/load after the game state has settled.
+# 	show coal unlock button when player is nearing the unlock threshold

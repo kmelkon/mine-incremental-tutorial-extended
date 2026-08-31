@@ -19,7 +19,7 @@ var output = 1
 var coal_output = 1
 var passive_output_time = 1
 var passive_output = 0
-var coal_miner_unlock_cost = 100
+var coal_miner_unlock_cost = 1100
 var coal_miner_upgrade_cost = {
 	"iron": 100,
 	"coal": 50
