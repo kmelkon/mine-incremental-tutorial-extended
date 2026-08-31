@@ -44,7 +44,7 @@ func buy_upgrade(upgrade_id: StringName) -> void:
 		&"iron_mine_speed":
 			upgrades["iron_mine_speed"]["amount"] += 1
 			upgrades["iron_mine_speed"]["level"] += 1
-			upgrades["iron_mine_speed"]["cost"]["iron"] = ceili(upgrades["iron_output"]["cost"]["iron"] * 1.20)
+			upgrades["iron_mine_speed"]["cost"]["iron"] = ceili(upgrades["iron_mine_speed"]["cost"]["iron"] * 1.20)
 			upgrade_bought.emit(upgrade_id)
 
 func get_upgrade_cost(upgrade_id: StringName) -> int:

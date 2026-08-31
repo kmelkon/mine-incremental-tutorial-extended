@@ -1,7 +1,6 @@
 extends Control
 
 @onready var mine_label: Label = %IronTotalLabel
-@onready var speed_upgrade_button: Button = %SpeedUpgradeButton
 @onready var reset_button: Button = %ResetButton
 @onready var passive_output_button: Button = %PassiveOutputButton
 @onready var passive_output_timer: Timer = $PassiveOutputTimer
@@ -15,9 +14,7 @@ extends Control
 var game_data: GameData = GameData.new()
 var upgrade_data: UpgradeData = UpgradeData.new()
 
-var speed_cost = 2
 var passive_output_cost = 2
-var speed = 1
 var output = 1
 var coal_output = 1
 var passive_output_time = 1
@@ -59,17 +56,9 @@ func _on_button_pressed() -> void:
 	)
 	tween.finished.connect(_on_mine_tween_complete)
 
-func _on_speed_upgrade_button_pressed() -> void:
-	if game_data.can_spend_resource("iron", speed_cost):
-		game_data.spend_resource("iron", speed_cost)
-		speed += 1
-		update_text()
-		
 
 func _on_reset_button_pressed() -> void:
 	game_data.reset()
-	speed_cost = 2
-	speed = 1
 	output = 1
 	passive_output_time = 1
 	passive_output = 0
@@ -82,7 +71,6 @@ func update_text():
 		coal_total_label.text = "Coal:" + str(game_data.resources["coal"])
 	coal_miner_unlock_button.text = "Coal Miner Unlock \nPrice: "+ str(coal_miner_unlock_cost)
 	coal_miner_upgrade_button.text = "Coal Miner Upgrade \nPrice: "+ str(coal_miner_upgrade_cost["iron"]) + " iron + " + str(coal_miner_upgrade_cost["coal"]) + " coal" 
-	speed_upgrade_button.text = "Speed \nPrice:"+ str(speed_cost)+"\n Speed: " + str(speed)
 	passive_output_button.text = "Passive Output\nCost: "+ str(passive_output_cost)+"\n Passive output: +" + str(passive_output)+ "/" + str(passive_output_time) + "sec"
 	
 
