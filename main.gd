@@ -1,6 +1,5 @@
 extends Control
 
-@onready var mine_animation_player: AnimationPlayer = %MineAnimationPlayer
 @onready var mine_label: Label = %IronTotalLabel
 @onready var speed_upgrade_button: Button = %SpeedUpgradeButton
 @onready var reset_button: Button = %ResetButton
@@ -10,17 +9,17 @@ extends Control
 @onready var coal_miner_unlock_button: Button = %CoalMinerUnlockButton
 @onready var coal_miner_upgrade_button: Button = %CoalMinerUpgradeButton
 @onready var mine_coal_button: Button = %MineCoalButton
+@onready var progress_bar: ProgressBar = %ProgressBar
+@onready var mine_iron_button: Button = %MineButton
 
 var game_data: GameData = GameData.new()
 var upgrade_data: UpgradeData = UpgradeData.new()
 
-var output_cost = 2
 var speed_cost = 2
 var passive_output_cost = 2
 var speed = 1
 var output = 1
 var coal_output = 1
-var output_max = 10
 var passive_output_time = 1
 var passive_output = 0
 var coal_miner_unlock_cost = 100
@@ -29,10 +28,13 @@ var coal_miner_upgrade_cost = {
 	"coal": 50
 }
 var coal_miner_unlocked = false
-
+@export var mining_output_time = 5.0
 
 func _ready() -> void:
 	game_data.resources_changed.connect(_on_resources_changed)
+	
+	progress_bar.max_value = 100
+	progress_bar.value = 0
 	# this will set up every upgrade button we add in the future instead of doing it manually one by one like it's 1990
 	for node in get_tree().get_nodes_in_group("upgrade_buttons"):
 		var upgrade_button := node as UpgradeButtonControl
@@ -44,31 +46,33 @@ func _process(delta: float) -> void:
 		coal_miner_unlock_button.disabled = true
 		
 func _on_button_pressed() -> void:
-	mine_animation_player.play("mine")
-
-
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	game_data.add_resource("iron", output)
-	update_text()
+	mine_iron_button.disabled = true
+	progress_bar.value = 0
+	
+	var tween = create_tween()
+	tween.tween_property(
+		progress_bar,
+		"value",
+		progress_bar.max_value,
+		mining_output_time
+	)
+	tween.finished.connect(_on_mine_tween_complete)
 
 func _on_speed_upgrade_button_pressed() -> void:
 	if game_data.can_spend_resource("iron", speed_cost):
 		game_data.spend_resource("iron", speed_cost)
 		speed += 1
-		mine_animation_player.speed_scale = speed
 		update_text()
 		
 
 func _on_reset_button_pressed() -> void:
 	game_data.reset()
-	output_cost = 2
 	speed_cost = 2
 	speed = 1
 	output = 1
-	output_max = 10
 	passive_output_time = 1
 	passive_output = 0
-	mine_animation_player.speed_scale = speed
+	mining_output_time = 5.0
 	update_text()
 
 func update_text():
@@ -139,3 +143,10 @@ func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> voi
 				upgrade_data.buy_upgrade(upgrade_id)
 				output += 1
 				print("IRON OUTPUT BOUGHT")
+
+func _on_mine_tween_complete() -> void:
+	mine_iron_button.disabled = false
+	game_data.add_resource("iron", output)
+	print("tween complete")
+	update_text()
+	

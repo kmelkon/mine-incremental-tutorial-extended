@@ -46,7 +46,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [ExtResource("1_qsp4k")]
 }
 
@@ -139,7 +139,12 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer" unique_id=111829721]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer" unique_id=1813464769]
+visible = false
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 4
@@ -203,6 +208,11 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Speed"
+
+[node name="SpeedUpgradeButtonControl" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1616399668 groups=["upgrade_buttons"] instance=ExtResource("3_htxhm")]
+unique_name_in_owner = true
+layout_mode = 2
+upgrade_id = &"iron_mine_speed"
 
 [node name="PassiveOutputButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1830355551]
 unique_name_in_owner = true
