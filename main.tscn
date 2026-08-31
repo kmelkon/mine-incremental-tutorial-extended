@@ -249,5 +249,4 @@ ignore_time_scale = true
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/CoalMinerUnlockButton" to="." method="_on_coal_miner_unlock_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/CoalMinerUpgradeButton" to="." method="_on_coal_miner_upgrade_button_pressed"]
 [connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/UpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
-[connection signal="animation_finished" from="MineAnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="PassiveOutputTimer" to="." method="_on_passive_output_timer_timeout"]

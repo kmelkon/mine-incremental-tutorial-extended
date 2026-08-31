@@ -137,7 +137,7 @@ func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> voi
 				game_data.spend_resource("iron", cost)
 				upgrade_data.buy_upgrade(upgrade_id)
 				mining_output_time = maxf(0.3, mining_output_time - 0.5)
-				print("IRON OUTPUT BOUGHT")
+				print("IRON MINE SPEED BOUGHT")
 
 func _on_mine_tween_complete() -> void:
 	mine_iron_button.disabled = false

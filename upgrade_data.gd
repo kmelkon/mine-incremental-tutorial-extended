@@ -34,7 +34,7 @@ func buy_upgrade(upgrade_id: StringName) -> void:
 		&"pickaxe":
 			upgrades["pickaxe"]["amount"] += 1
 			upgrades["pickaxe"]["level"] += 1
-			upgrades["pickaxe"]["cost"]["iron"] = ceil(upgrades["pickaxe"]["cost"]["iron"] * 1.15)
+			upgrades["pickaxe"]["cost"]["iron"] = ceili(upgrades["pickaxe"]["cost"]["iron"] * 1.15)
 			upgrade_bought.emit(upgrade_id)
 		&"iron_output":
 			upgrades["iron_output"]["amount"] += 1
