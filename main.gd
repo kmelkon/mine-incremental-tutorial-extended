@@ -48,6 +48,7 @@ func _process(delta: float) -> void:
 func _on_button_pressed() -> void:
 	mine_iron_button.disabled = true
 	progress_bar.value = 0
+	print(mining_output_time)
 	
 	var tween = create_tween()
 	tween.tween_property(
@@ -126,7 +127,7 @@ func _on_resources_changed() -> void:
 
 func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> void:
 	var cost = upgrade_data.get_upgrade_cost(upgrade_id)
-	
+	print(upgrade_id)
 	match upgrade_id:
 		&"pickaxe":
 			# main asks upgrade data: "how much does a pick axe cost?"
@@ -142,6 +143,12 @@ func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> voi
 				game_data.spend_resource("iron", cost)
 				upgrade_data.buy_upgrade(upgrade_id)
 				output += 1
+				print("IRON OUTPUT BOUGHT")
+		&"iron_mine_speed":
+			if game_data.can_spend_resource("iron", cost):
+				game_data.spend_resource("iron", cost)
+				upgrade_data.buy_upgrade(upgrade_id)
+				mining_output_time = maxf(0.3, mining_output_time - 0.5)
 				print("IRON OUTPUT BOUGHT")
 
 func _on_mine_tween_complete() -> void:

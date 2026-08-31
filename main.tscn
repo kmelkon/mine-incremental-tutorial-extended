@@ -252,6 +252,7 @@ ignore_time_scale = true
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/HBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
 [connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/IronOutputUpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/SpeedUpgradeButton" to="." method="_on_speed_upgrade_button_pressed"]
+[connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/SpeedUpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/PassiveOutputButton" to="." method="_on_passive_output_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/CoalMinerUnlockButton" to="." method="_on_coal_miner_unlock_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/CoalMinerUpgradeButton" to="." method="_on_coal_miner_upgrade_button_pressed"]
