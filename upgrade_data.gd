@@ -26,10 +26,22 @@ var upgrades: Dictionary = {
 		"amount": 0,
 		"level": 0,
 		"max_level": 10
+	},
+	"passive_iron_output": {
+		"name": "Passive Iron Mining",
+		"description": "This pickaxe is alive!",
+		"cost": { "iron": 50 },
+		"amount": 0,
+		"level": 0,
+		"time": 1
 	}
 }
 
 func buy_upgrade(upgrade_id: StringName) -> void:
+#	max level is a real game rule, not just UI.
+	if is_upgrade_maxed(upgrade_id):
+		return 
+	
 	match upgrade_id:
 		&"pickaxe":
 			upgrades["pickaxe"]["amount"] += 1
@@ -46,6 +58,11 @@ func buy_upgrade(upgrade_id: StringName) -> void:
 			upgrades["iron_mine_speed"]["level"] += 1
 			upgrades["iron_mine_speed"]["cost"]["iron"] = ceili(upgrades["iron_mine_speed"]["cost"]["iron"] * 1.20)
 			upgrade_bought.emit(upgrade_id)
+		&"passive_iron_output":
+			upgrades["passive_iron_output"]["amount"] += 1
+			upgrades["passive_iron_output"]["level"] += 1
+			upgrades["passive_iron_output"]["cost"]["iron"] = ceili(upgrades["passive_iron_output"]["cost"]["iron"] * 1.20)
+			upgrade_bought.emit(upgrade_id)
 
 func get_upgrade_cost(upgrade_id: StringName) -> int:
 	match upgrade_id:
@@ -55,6 +72,8 @@ func get_upgrade_cost(upgrade_id: StringName) -> int:
 			return upgrades["iron_output"]["cost"]["iron"]
 		&"iron_mine_speed":
 			return upgrades["iron_mine_speed"]["cost"]["iron"]
+		&"passive_iron_output":
+			return upgrades["passive_iron_output"]["cost"]["iron"]
 	return -1
 
 func is_upgrade_maxed(upgrade_id: StringName) -> bool:
@@ -69,7 +88,6 @@ func reset_upgrades() -> void:
 #	reset all upgrade data to  initial here
 	pass
 	
-#	Migrate passive output.
 #	Migrate coal upgrades, since they will teach you multi-resource costs.
 #	Add save/load after the game state has settled.
 # 	show coal unlock button when player is nearing the unlock threshold
