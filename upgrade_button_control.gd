@@ -14,13 +14,16 @@ func setup(data: UpgradeData) -> void:
 	refresh()
 
 func refresh() -> void:
+	var cost_parts: Array[String] = []
+	
 	var is_maxed = upgrade_data.is_upgrade_maxed(upgrade_id)
 	var upgrade = upgrade_data.get_upgrade(upgrade_id)
 	
 	var upgrade_cost = upgrade_data.get_upgrade_cost(upgrade_id)
-	var cost_label = ""
-	for key in upgrade_cost:
-		cost_label = cost_label + str(upgrade_cost[key]) + " " + key
+	for resource in upgrade_cost:
+		cost_parts.append("%s %s" % [upgrade_cost[resource], resource])
+		
+	var cost_label = " + ".join(cost_parts)
 	
 	button.text = "%s\nPrice: %s \nLevel: %s" % [
 		upgrade["name"],

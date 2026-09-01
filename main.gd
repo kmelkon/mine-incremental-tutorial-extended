@@ -101,7 +101,7 @@ func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> voi
 	var cost = upgrade_data.get_upgrade_cost(upgrade_id)
 	print(upgrade_id)
 	
-	if game_data.can_afford(cost):
+	if game_data.can_afford(cost) and not upgrade_data.is_upgrade_maxed(upgrade_id):
 		game_data.spend_resources(cost)
 		upgrade_data.buy_upgrade(upgrade_id)
 		
