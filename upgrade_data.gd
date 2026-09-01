@@ -25,6 +25,7 @@ var upgrades: Dictionary = {
 		"cost": { "iron": 2 },
 		"amount": 0,
 		"level": 0,
+		"time": 5.0,
 		"max_level": 10
 	},
 	"passive_iron_output": {
@@ -49,14 +50,17 @@ func buy_upgrade(upgrade_id: StringName) -> void:
 			upgrades["pickaxe"]["cost"]["iron"] = ceili(upgrades["pickaxe"]["cost"]["iron"] * 1.15)
 			upgrade_bought.emit(upgrade_id)
 		&"iron_output":
-			upgrades["iron_output"]["amount"] += 1
-			upgrades["iron_output"]["level"] += 1
-			upgrades["iron_output"]["cost"]["iron"] = ceili(upgrades["iron_output"]["cost"]["iron"] * 1.15)
+			var iron_output = upgrades["iron_output"]
+			iron_output["amount"] += 1
+			iron_output["level"] += 1
+			iron_output["cost"]["iron"] = ceili(iron_output["cost"]["iron"] * 1.15)
 			upgrade_bought.emit(upgrade_id)
 		&"iron_mine_speed":
-			upgrades["iron_mine_speed"]["amount"] += 1
-			upgrades["iron_mine_speed"]["level"] += 1
-			upgrades["iron_mine_speed"]["cost"]["iron"] = ceili(upgrades["iron_mine_speed"]["cost"]["iron"] * 1.20)
+			var iron_mine_speed = upgrades["iron_mine_speed"]
+			iron_mine_speed["amount"] += 1
+			iron_mine_speed["level"] += 1
+			iron_mine_speed["cost"]["iron"] = ceili(iron_mine_speed["cost"]["iron"] * 1.20)
+			iron_mine_speed["time"] = maxf(0.3, iron_mine_speed["time"] - 0.5)
 			upgrade_bought.emit(upgrade_id)
 		&"passive_iron_output":
 			upgrades["passive_iron_output"]["amount"] += 1
@@ -84,6 +88,20 @@ func is_upgrade_maxed(upgrade_id: StringName) -> bool:
 	
 	return upgrade["level"] >= upgrade["max_level"]
 	
+func get_passive_iron_output() -> int:
+	return upgrades["passive_iron_output"]["amount"]
+
+func get_coal_per_click() -> int:
+#	TODO: placeholder until coal buttons are migrated
+	return -1
+
+func get_mine_time() -> int:
+	return upgrades["iron_mine_speed"]["time"]
+
+func get_iron_per_click() -> int:
+#	If multiplier upgrades are introduced later, they need to be calculated here
+	return 1 + upgrades["iron_output"]["amount"]
+
 func reset_upgrades() -> void:
 #	reset all upgrade data to  initial here
 	pass

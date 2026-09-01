@@ -14,6 +14,8 @@ var game_data: GameData = GameData.new()
 var upgrade_data: UpgradeData = UpgradeData.new()
 
 var output = 1
+
+# these will move to game_data/upgrade_data when we migrate the related buttons
 var coal_output = 1
 var coal_miner_unlock_cost = 1100
 var coal_miner_upgrade_cost = {
@@ -21,7 +23,6 @@ var coal_miner_upgrade_cost = {
 	"coal": 50
 }
 var coal_miner_unlocked = false
-@export var mining_output_time = 5.0
 
 func _ready() -> void:
 	game_data.resources_changed.connect(_on_resources_changed)
@@ -41,14 +42,14 @@ func _process(delta: float) -> void:
 func _on_button_pressed() -> void:
 	mine_iron_button.disabled = true
 	progress_bar.value = 0
-	print(mining_output_time)
+	print(upgrade_data["iron_mine_speed"]["time"])
 	
 	var tween = create_tween()
 	tween.tween_property(
 		progress_bar,
 		"value",
 		progress_bar.max_value,
-		mining_output_time
+		upgrade_data["iron_mine_speed"]["time"]
 	)
 	tween.finished.connect(_on_mine_tween_complete)
 
@@ -56,7 +57,6 @@ func _on_button_pressed() -> void:
 func _on_reset_button_pressed() -> void:
 	game_data.reset()
 	output = 1
-	mining_output_time = 5.0
 	update_text()
 
 func update_text():
@@ -121,7 +121,6 @@ func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> voi
 			if game_data.can_spend_resource("iron", cost):
 				game_data.spend_resource("iron", cost)
 				upgrade_data.buy_upgrade(upgrade_id)
-				mining_output_time = maxf(0.3, mining_output_time - 0.5)
 				print("IRON MINE SPEED BOUGHT")
 		&"passive_iron_output":
 			if game_data.can_spend_resource("iron", cost):
