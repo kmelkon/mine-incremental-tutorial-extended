@@ -13,8 +13,6 @@ extends Control
 var game_data: GameData = GameData.new()
 var upgrade_data: UpgradeData = UpgradeData.new()
 
-var output = 1
-
 # these will move to game_data/upgrade_data when we migrate the related buttons
 var coal_output = 1
 var coal_miner_unlock_cost = 1100
@@ -42,21 +40,21 @@ func _process(delta: float) -> void:
 func _on_button_pressed() -> void:
 	mine_iron_button.disabled = true
 	progress_bar.value = 0
-	print(upgrade_data["iron_mine_speed"]["time"])
+	var mine_speed_time = upgrade_data.get_mine_time()
+	print(mine_speed_time)
 	
 	var tween = create_tween()
 	tween.tween_property(
 		progress_bar,
 		"value",
 		progress_bar.max_value,
-		upgrade_data["iron_mine_speed"]["time"]
+		mine_speed_time
 	)
 	tween.finished.connect(_on_mine_tween_complete)
 
 
 func _on_reset_button_pressed() -> void:
 	game_data.reset()
-	output = 1
 	update_text()
 
 func update_text():
@@ -68,7 +66,8 @@ func update_text():
 
 	
 func _on_passive_output_timer_timeout() -> void:
-	game_data.add_resource("iron", upgrade_data.upgrades["passive_iron_output"]["amount"])
+	var passive_iron_output = upgrade_data.get_passive_iron_output()
+	game_data.add_resource("iron", passive_iron_output)
 	update_text()
 
 
@@ -115,7 +114,6 @@ func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> voi
 			if game_data.can_spend_resource("iron", cost):
 				game_data.spend_resource("iron", cost)
 				upgrade_data.buy_upgrade(upgrade_id)
-				output += 1
 				print("IRON OUTPUT BOUGHT")
 		&"iron_mine_speed":
 			if game_data.can_spend_resource("iron", cost):
@@ -124,14 +122,16 @@ func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> voi
 				print("IRON MINE SPEED BOUGHT")
 		&"passive_iron_output":
 			if game_data.can_spend_resource("iron", cost):
+				var passive_iron_output_time = upgrade_data.get_passive_iron_output_time()
 				game_data.spend_resource("iron", cost)
 				upgrade_data.buy_upgrade(upgrade_id)
-				passive_output_timer.start(upgrade_data.upgrades["passive_iron_output"]["time"])
+				passive_output_timer.start(passive_iron_output_time)
 				print("PASSIVE IRON MINE BOUGHT")
 
 func _on_mine_tween_complete() -> void:
+	var iron_output_per_click = upgrade_data.get_iron_per_click()
 	mine_iron_button.disabled = false
-	game_data.add_resource("iron", output)
+	game_data.add_resource("iron", iron_output_per_click)
 	print("tween complete")
 	update_text()
 	

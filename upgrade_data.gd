@@ -34,7 +34,7 @@ var upgrades: Dictionary = {
 		"cost": { "iron": 50 },
 		"amount": 0,
 		"level": 0,
-		"time": 1
+		"time": 1.0
 	}
 }
 
@@ -91,11 +91,14 @@ func is_upgrade_maxed(upgrade_id: StringName) -> bool:
 func get_passive_iron_output() -> int:
 	return upgrades["passive_iron_output"]["amount"]
 
+func get_passive_iron_output_time() -> float:
+	return upgrades["passive_iron_output"]["time"]
+
 func get_coal_per_click() -> int:
 #	TODO: placeholder until coal buttons are migrated
 	return -1
 
-func get_mine_time() -> int:
+func get_mine_time() -> float:
 	return upgrades["iron_mine_speed"]["time"]
 
 func get_iron_per_click() -> int:
