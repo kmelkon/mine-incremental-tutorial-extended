@@ -14,12 +14,17 @@ func setup(data: UpgradeData) -> void:
 	refresh()
 
 func refresh() -> void:
-	var upgrade = upgrade_data.upgrades[upgrade_id]
 	var is_maxed = upgrade_data.is_upgrade_maxed(upgrade_id)
+	var upgrade = upgrade_data.get_upgrade(upgrade_id)
 	
-	button.text = "%s\nPrice: %s iron\nLevel: %s" % [
+	var upgrade_cost = upgrade_data.get_upgrade_cost(upgrade_id)
+	var cost_label = ""
+	for key in upgrade_cost:
+		cost_label = cost_label + str(upgrade_cost[key]) + " " + key
+	
+	button.text = "%s\nPrice: %s \nLevel: %s" % [
 		upgrade["name"],
-		upgrade["cost"]["iron"],
+		cost_label,
 		upgrade["level"],
 	]
 	

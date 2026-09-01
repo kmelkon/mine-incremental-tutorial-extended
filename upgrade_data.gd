@@ -68,17 +68,12 @@ func buy_upgrade(upgrade_id: StringName) -> void:
 			upgrades["passive_iron_output"]["cost"]["iron"] = ceili(upgrades["passive_iron_output"]["cost"]["iron"] * 1.20)
 			upgrade_bought.emit(upgrade_id)
 
-func get_upgrade_cost(upgrade_id: StringName) -> int:
-	match upgrade_id:
-		&"pickaxe":
-			return upgrades["pickaxe"]["cost"]["iron"]
-		&"iron_output":
-			return upgrades["iron_output"]["cost"]["iron"]
-		&"iron_mine_speed":
-			return upgrades["iron_mine_speed"]["cost"]["iron"]
-		&"passive_iron_output":
-			return upgrades["passive_iron_output"]["cost"]["iron"]
-	return -1
+func get_upgrade(upgrade_id: StringName) -> Dictionary:
+	return upgrades[upgrade_id].duplicate()
+
+func get_upgrade_cost(upgrade_id: StringName) -> Dictionary:
+#	return a copy so callers can't modify upgrades data
+	return upgrades[upgrade_id]["cost"].duplicate()
 
 func is_upgrade_maxed(upgrade_id: StringName) -> bool:
 	var upgrade = upgrades[upgrade_id]

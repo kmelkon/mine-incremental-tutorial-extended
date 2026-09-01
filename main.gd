@@ -100,6 +100,10 @@ func _on_resources_changed() -> void:
 func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> void:
 	var cost = upgrade_data.get_upgrade_cost(upgrade_id)
 	print(upgrade_id)
+	
+	if upgrade_data.can_afford(cost):
+		upgrade_data.spend_resources(cost)
+		upgrade_data.buy_upgrade(upgrade_id)
 	match upgrade_id:
 		&"pickaxe":
 			# main asks upgrade data: "how much does a pick axe cost?"

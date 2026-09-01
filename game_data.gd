@@ -12,13 +12,20 @@ func add_resource(resource: String, amount: int) -> void:
 	resources[resource] += amount
 	resources_changed.emit()
 
-func spend_resource(resource: String, amount: int) -> void:
-	if can_spend_resource(resource, amount):
-		resources[resource] -= amount
-		resources_changed.emit()
+func can_afford(cost: Dictionary) -> bool:
+	for resource in cost:
+		if resources.get(resource, 0) < cost[resource]:
+			return false
+	return true
 
-func can_spend_resource(resource: String, amount: int) -> bool:
-	return resources[resource] >= amount
+func spend_resources(cost: Dictionary) -> void:
+	if not can_afford(cost):
+		return
+	
+	for resource in cost:
+		resources[resource] -= cost[resource]
+		
+	resources_changed.emit()
 
 func reset() -> void:
 	resources["iron"] = 0
