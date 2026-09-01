@@ -69,7 +69,7 @@ func buy_upgrade(upgrade_id: StringName) -> void:
 			upgrade_bought.emit(upgrade_id)
 
 func get_upgrade(upgrade_id: StringName) -> Dictionary:
-	return upgrades[upgrade_id].duplicate()
+	return upgrades[upgrade_id].duplicate(true)
 
 func get_upgrade_cost(upgrade_id: StringName) -> Dictionary:
 #	return a copy so callers can't modify upgrades data

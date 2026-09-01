@@ -101,36 +101,12 @@ func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> voi
 	var cost = upgrade_data.get_upgrade_cost(upgrade_id)
 	print(upgrade_id)
 	
-	if upgrade_data.can_afford(cost):
-		upgrade_data.spend_resources(cost)
+	if game_data.can_afford(cost):
+		game_data.spend_resources(cost)
 		upgrade_data.buy_upgrade(upgrade_id)
-	match upgrade_id:
-		&"pickaxe":
-			# main asks upgrade data: "how much does a pick axe cost?"
-			# main asks game data: "can player afford this upgrade?"
-			if game_data.can_spend_resource("iron", cost):
-				# main spends iron (or whatever is needed
-				game_data.spend_resource("iron", cost)
-				# main tells upgrade data: buy upgrade with this upgrade id
-				upgrade_data.buy_upgrade(upgrade_id)
-				print("pickaxe BOUGHT!")
-		&"iron_output":
-			if game_data.can_spend_resource("iron", cost):
-				game_data.spend_resource("iron", cost)
-				upgrade_data.buy_upgrade(upgrade_id)
-				print("IRON OUTPUT BOUGHT")
-		&"iron_mine_speed":
-			if game_data.can_spend_resource("iron", cost):
-				game_data.spend_resource("iron", cost)
-				upgrade_data.buy_upgrade(upgrade_id)
-				print("IRON MINE SPEED BOUGHT")
-		&"passive_iron_output":
-			if game_data.can_spend_resource("iron", cost):
-				var passive_iron_output_time = upgrade_data.get_passive_iron_output_time()
-				game_data.spend_resource("iron", cost)
-				upgrade_data.buy_upgrade(upgrade_id)
-				passive_output_timer.start(passive_iron_output_time)
-				print("PASSIVE IRON MINE BOUGHT")
+		
+		if upgrade_id == &"passive_iron_output":
+			passive_output_timer.start(upgrade_data.get_passive_iron_output_time())
 
 func _on_mine_tween_complete() -> void:
 	var iron_output_per_click = upgrade_data.get_iron_per_click()
