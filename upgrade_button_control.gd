@@ -39,5 +39,4 @@ func _on_upgrade_bought(bought_id: StringName) -> void:
 		refresh()
 		
 func _on_button_pressed() -> void:
-	print("upgrade button PRESSED!")
 	upgrade_requested.emit(upgrade_id)

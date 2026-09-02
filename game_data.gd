@@ -5,8 +5,8 @@ signal resources_changed()
 
 var resources: Dictionary = {
 #	TODO: change back to 0 before "release"
-	"iron": 1000,
-	"coal": 1000
+	"iron": 10000,
+	"coal": 10000
 }
 func add_resource(resource: String, amount: int) -> void:
 	resources[resource] += amount

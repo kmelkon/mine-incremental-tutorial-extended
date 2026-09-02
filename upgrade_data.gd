@@ -4,14 +4,6 @@ extends Resource
 signal upgrade_bought(upgrade_id: StringName)
 
 var upgrades: Dictionary = {
-	"pickaxe": {
-		"name": "Pickaxe",
-		"cost": { "iron": 250 },
-		"amount": 0,
-		"description": "It's an axe, what did you expect?",
-		"level": 0,
-		"max_level": 10
-	},
 	"iron_output": {
 		"name": "Iron Output",
 		"description": "Same button, more iron.",
@@ -20,7 +12,7 @@ var upgrades: Dictionary = {
 		"level": 0
 	},
 	"iron_mine_speed": {
-		"name": "Iron Mine Speed",
+		"name": "Iron Mining Speed",
 		"description": "Mine iron. Faster.",
 		"cost": { "iron": 2 },
 		"amount": 0,
@@ -35,6 +27,31 @@ var upgrades: Dictionary = {
 		"amount": 0,
 		"level": 0,
 		"time": 1.0
+	},
+	"coal_unlock": {
+		"name": "Unlock Coal Mining",
+		"description": "Is that coal??!!?!1",
+		"cost": { "iron": 1000 },
+		"amount": 0,
+		"level": 0,
+		"max_level": 1
+	},
+	"coal_mine_output": {
+		"name": "Coal output",
+		"description": "I think I found more coal here!",
+		"cost": { "iron": 1100, "coal": 100 },
+		"amount": 0,
+		"level": 0,
+		"time": 1.0
+	},
+	"coal_mine_speed": {
+		"name": "Coal Mining Speed",
+		"description": "Mine coal. Faster!",
+		"cost": { "iron": 1500, "coal": 200 },
+		"amount": 0,
+		"level": 0,
+		"time": 8.0,
+		"max_level": 10
 	}
 }
 
@@ -44,11 +61,6 @@ func buy_upgrade(upgrade_id: StringName) -> void:
 		return 
 	
 	match upgrade_id:
-		&"pickaxe":
-			upgrades["pickaxe"]["amount"] += 1
-			upgrades["pickaxe"]["level"] += 1
-			upgrades["pickaxe"]["cost"]["iron"] = ceili(upgrades["pickaxe"]["cost"]["iron"] * 1.15)
-			upgrade_bought.emit(upgrade_id)
 		&"iron_output":
 			var iron_output = upgrades["iron_output"]
 			iron_output["amount"] += 1
@@ -67,6 +79,33 @@ func buy_upgrade(upgrade_id: StringName) -> void:
 			upgrades["passive_iron_output"]["level"] += 1
 			upgrades["passive_iron_output"]["cost"]["iron"] = ceili(upgrades["passive_iron_output"]["cost"]["iron"] * 1.20)
 			upgrade_bought.emit(upgrade_id)
+		&"coal_unlock":
+			var coal_unlock = upgrades["coal_unlock"]
+			coal_unlock["amount"] += 1
+			coal_unlock["level"] += 1
+			upgrade_bought.emit(upgrade_id)
+		&"coal_mine_output":
+			var coal_output = upgrades["coal_mine_output"]
+			coal_output["amount"] += 1
+			coal_output["level"] += 1
+			coal_output["cost"] = increase_cost("coal_mine_output", 1.15)
+			upgrade_bought.emit(upgrade_id)
+		&"coal_mine_speed":
+			var coal_mine_speed = upgrades["coal_mine_speed"]
+			coal_mine_speed["amount"] += 1
+			coal_mine_speed["level"] += 1
+			coal_mine_speed["cost"] = increase_cost("coal_mine_speed", 1.20)
+			coal_mine_speed["time"] = maxf(0.3, coal_mine_speed["time"] - 0.5)
+			upgrade_bought.emit(upgrade_id)
+
+func increase_cost(upgrade_id: StringName, multiplier: float) -> Dictionary:
+	var upgrade_cost = get_upgrade_cost(upgrade_id)
+	var new_cost = {}
+	
+	for key in upgrade_cost:
+		new_cost[key] = ceili(upgrade_cost[key] * multiplier)
+	
+	return new_cost
 
 func get_upgrade(upgrade_id: StringName) -> Dictionary:
 	return upgrades[upgrade_id].duplicate(true)
@@ -83,18 +122,20 @@ func is_upgrade_maxed(upgrade_id: StringName) -> bool:
 	
 	return upgrade["level"] >= upgrade["max_level"]
 	
-func get_passive_iron_output() -> int:
+func get_passive_iron_amount() -> int:
 	return upgrades["passive_iron_output"]["amount"]
 
 func get_passive_iron_output_time() -> float:
 	return upgrades["passive_iron_output"]["time"]
 
 func get_coal_per_click() -> int:
-#	TODO: placeholder until coal buttons are migrated
-	return -1
+	return 1 + upgrades["coal_mine_output"]["amount"]
 
 func get_mine_time() -> float:
 	return upgrades["iron_mine_speed"]["time"]
+	
+func get_mine_coal_time() -> float:
+	return upgrades["coal_mine_speed"]["time"]
 
 func get_iron_per_click() -> int:
 #	If multiplier upgrades are introduced later, they need to be calculated here
@@ -104,6 +145,3 @@ func reset_upgrades() -> void:
 #	reset all upgrade data to  initial here
 	pass
 	
-#	Migrate coal upgrades, since they will teach you multi-resource costs.
-#	Add save/load after the game state has settled.
-# 	show coal unlock button when player is nearing the unlock threshold

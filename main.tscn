@@ -143,6 +143,11 @@ size_flags_horizontal = 10
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="CoalProgressBar" type="ProgressBar" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer" unique_id=560823871]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer" unique_id=1813464769]
 visible = false
 texture_filter = 1
@@ -178,57 +183,74 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer" unique_id=116856608]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer" unique_id=455761403]
 layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer" unique_id=116856608]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=16171141]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer" unique_id=16171141]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/HBoxContainer" unique_id=811836269]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=811836269]
 layout_mode = 2
 text = "Upgrades"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ResetButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1672551653]
+[node name="ResetButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=1672551653]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Reset"
 
-[node name="IronOutputUpgradeButtonControl" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=574934227 groups=["upgrade_buttons"] instance=ExtResource("3_htxhm")]
+[node name="IronOutputUpgradeButtonControl" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer" unique_id=574934227 groups=["upgrade_buttons"] instance=ExtResource("3_htxhm")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+size_flags_vertical = 1
 upgrade_id = &"iron_output"
 
-[node name="SpeedUpgradeButtonControl" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1616399668 groups=["upgrade_buttons"] instance=ExtResource("3_htxhm")]
+[node name="SpeedUpgradeButtonControl" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1616399668 groups=["upgrade_buttons"] instance=ExtResource("3_htxhm")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+size_flags_vertical = 1
 upgrade_id = &"iron_mine_speed"
 
-[node name="PassiveIronOutputUpgradeButtonControl" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1737075368 groups=["upgrade_buttons"] instance=ExtResource("3_htxhm")]
+[node name="PassiveIronOutputUpgradeButtonControl" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1737075368 groups=["upgrade_buttons"] instance=ExtResource("3_htxhm")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+size_flags_vertical = 1
 upgrade_id = &"passive_iron_output"
 
-[node name="CoalMinerUnlockButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1772461128]
+[node name="CoalUnlockUpgradeButtonControl" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1629399426 groups=["upgrade_buttons"] instance=ExtResource("3_htxhm")]
 unique_name_in_owner = true
 visible = false
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
-size_flags_vertical = 3
-text = "Unlock Coal Miner"
+size_flags_vertical = 1
+upgrade_id = &"coal_unlock"
 
-[node name="CoalMinerUpgradeButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=282194632]
+[node name="CoalMineUpgradeButtonControl" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer" unique_id=221417292 groups=["upgrade_buttons"] instance=ExtResource("3_htxhm")]
 unique_name_in_owner = true
 visible = false
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
-size_flags_vertical = 3
-text = "Coal Miner Upgrade"
+size_flags_vertical = 1
+upgrade_id = &"coal_mine_output"
 
-[node name="UpgradeButtonControl" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer" unique_id=1706843746 groups=["upgrade_buttons"] instance=ExtResource("3_htxhm")]
+[node name="CoalMineSpeedUpgradeButtonControl" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer" unique_id=990350938 groups=["upgrade_buttons"] instance=ExtResource("3_htxhm")]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
-upgrade_id = &"pickaxe"
+size_flags_vertical = 1
+upgrade_id = &"coal_mine_speed"
 
 [node name="MineAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1486491023]
 unique_name_in_owner = true
@@ -239,11 +261,11 @@ ignore_time_scale = true
 
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/MineButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/MineCoalButton" to="." method="_on_mine_coal_button_pressed"]
-[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/HBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
-[connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/IronOutputUpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
-[connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/SpeedUpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
-[connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/PassiveIronOutputUpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
-[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/CoalMinerUnlockButton" to="." method="_on_coal_miner_unlock_button_pressed"]
-[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/CoalMinerUpgradeButton" to="." method="_on_coal_miner_upgrade_button_pressed"]
-[connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/VBoxContainer/UpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer/IronOutputUpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
+[connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer/SpeedUpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
+[connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer/PassiveIronOutputUpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
+[connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer/CoalUnlockUpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
+[connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer/CoalMineUpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
+[connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer/CoalMineSpeedUpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
 [connection signal="timeout" from="PassiveOutputTimer" to="." method="_on_passive_output_timer_timeout"]
