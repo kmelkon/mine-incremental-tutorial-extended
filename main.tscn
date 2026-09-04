@@ -259,6 +259,9 @@ libraries/ = SubResource("AnimationLibrary_ruth0")
 [node name="PassiveOutputTimer" type="Timer" parent="." unique_id=1578449357]
 ignore_time_scale = true
 
+[node name="AutoSaveTimer" type="Timer" parent="." unique_id=166770654]
+autostart = true
+
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/MineButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/MineCoalButton" to="." method="_on_mine_coal_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
@@ -269,3 +272,4 @@ ignore_time_scale = true
 [connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer/CoalMineUpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
 [connection signal="upgrade_requested" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer/CoalMineSpeedUpgradeButtonControl" to="." method="_on_upgrade_button_control_upgrade_requested"]
 [connection signal="timeout" from="PassiveOutputTimer" to="." method="_on_passive_output_timer_timeout"]
+[connection signal="timeout" from="AutoSaveTimer" to="." method="_on_auto_save_timer_timeout"]

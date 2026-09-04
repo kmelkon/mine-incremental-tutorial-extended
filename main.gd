@@ -14,6 +14,8 @@ extends Control
 
 var game_data: GameData = GameData.new()
 var upgrade_data: UpgradeData = UpgradeData.new()
+var iron_mine_tween: Tween
+var coal_mine_tween: Tween
 
 
 func _ready() -> void:
@@ -41,14 +43,14 @@ func _on_button_pressed() -> void:
 	progress_bar.value = 0
 	var mine_speed_time = upgrade_data.get_mine_time()
 	
-	var tween = create_tween()
-	tween.tween_property(
+	iron_mine_tween = create_tween()
+	iron_mine_tween.tween_property(
 		progress_bar,
 		"value",
 		progress_bar.max_value,
 		mine_speed_time
 	)
-	tween.finished.connect(_on_mine_iron_tween_complete)
+	iron_mine_tween.finished.connect(_on_mine_iron_tween_complete)
 	
 func _on_mine_coal_button_pressed() -> void:
 	mine_coal_button.disabled = true
@@ -56,17 +58,38 @@ func _on_mine_coal_button_pressed() -> void:
 	
 	var mine_coal_speed_time = upgrade_data.get_mine_coal_time()
 	
-	var tween = create_tween()
-	tween.tween_property(
+	coal_mine_tween = create_tween()
+	coal_mine_tween.tween_property(
 		coal_progress_bar,
 		"value",
 		coal_progress_bar.max_value,
 		mine_coal_speed_time
 	)
-	tween.finished.connect(_on_mine_coal_tween_complete)
+	coal_mine_tween.finished.connect(_on_mine_coal_tween_complete)
 
 func _on_reset_button_pressed() -> void:
 	game_data.reset()
+	upgrade_data.reset_upgrades()
+
+	passive_output_timer.stop()
+
+	progress_bar.value = 0
+	coal_progress_bar.value = 0
+
+	mine_iron_button.disabled = false
+	mine_coal_button.disabled = false
+
+	coal_progress_bar.visible = false
+	mine_coal_button.visible = false
+	coal_mine_upgrade_button_control.visible = false
+	coal_mine_speed_upgrade_button_control.visible = false
+	
+	if iron_mine_tween and iron_mine_tween.is_valid():
+		iron_mine_tween.kill()
+
+	if coal_mine_tween and coal_mine_tween.is_valid():
+		coal_mine_tween.kill()
+
 
 func _on_passive_output_timer_timeout() -> void:
 	var passive_iron_amount = upgrade_data.get_passive_iron_amount()
@@ -114,3 +137,21 @@ func _refresh_coal_unlock_visibility() -> void:
 	coal_unlock_button_control.visible = game_data.resources["iron"] >= 700
 
 # TODO: tween the buttons into existence instead of popping them into existence
+# TODO: display the passive output /second somewhere for both coal and iron
+
+
+func _on_auto_save_timer_timeout() -> void:
+	var save_dict  = {
+		"version": 1,
+		"game": {},
+		"upgrades": {}
+	}
+	var save_file = FileAccess.open("user://savegame.save", FileAccess.WRITE)
+	
+	save_dict["game"] = game_data.to_dict()
+	save_dict["upgrades"] = upgrade_data.to_dict()
+	
+	var json_text = JSON.stringify(save_dict)
+	
+	save_file.store_string(json_text)
+	

@@ -2,8 +2,9 @@ class_name UpgradeData
 extends Resource
 
 signal upgrade_bought(upgrade_id: StringName)
+signal upgrades_reset
 
-var upgrades: Dictionary = {
+var INITIAL_UPGRADES: Dictionary = {
 	"iron_output": {
 		"name": "Iron Output",
 		"description": "Same button, more iron.",
@@ -54,6 +55,8 @@ var upgrades: Dictionary = {
 		"max_level": 10
 	}
 }
+
+var upgrades: Dictionary = INITIAL_UPGRADES.duplicate(true)
 
 func buy_upgrade(upgrade_id: StringName) -> void:
 #	max level is a real game rule, not just UI.
@@ -141,7 +144,11 @@ func get_iron_per_click() -> int:
 #	If multiplier upgrades are introduced later, they need to be calculated here
 	return 1 + upgrades["iron_output"]["amount"]
 
+func to_dict() -> Dictionary:
+	return upgrades
+	
+
 func reset_upgrades() -> void:
-#	reset all upgrade data to  initial here
-	pass
+	upgrades = INITIAL_UPGRADES.duplicate(true)
+	upgrades_reset.emit()
 	

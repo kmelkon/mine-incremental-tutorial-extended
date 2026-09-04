@@ -9,6 +9,7 @@ var upgrade_data: UpgradeData
 
 func setup(data: UpgradeData) -> void:
 	upgrade_data = data
+	upgrade_data.upgrades_reset.connect(refresh)
 	# button listens to when an upgrade is bought
 	upgrade_data.upgrade_bought.connect(_on_upgrade_bought)
 	refresh()

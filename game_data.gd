@@ -4,9 +4,8 @@ extends Resource
 signal resources_changed()
 
 var resources: Dictionary = {
-#	TODO: change back to 0 before "release"
-	"iron": 10000,
-	"coal": 10000
+	"iron": 0,
+	"coal": 0
 }
 func add_resource(resource: String, amount: int) -> void:
 	resources[resource] += amount
@@ -27,6 +26,13 @@ func spend_resources(cost: Dictionary) -> void:
 		
 	resources_changed.emit()
 
+func to_dict() -> Dictionary:
+	return {
+		"last_saved": Time.get_unix_time_from_system(),
+		"resources": resources.duplicate(true)
+	}
+
 func reset() -> void:
 	resources["iron"] = 0
 	resources["coal"] = 0
+	resources_changed.emit()
