@@ -19,6 +19,8 @@ var coal_mine_tween: Tween
 
 
 func _ready() -> void:
+	load_game()
+	
 	game_data.resources_changed.connect(_on_resources_changed)
 	_on_resources_changed()
 	
@@ -34,10 +36,6 @@ func _ready() -> void:
 		var upgrade_button := node as UpgradeButtonControl
 		upgrade_button.setup(upgrade_data)
 
-func _process(delta: float) -> void:
-	pass
-		
-		
 func _on_button_pressed() -> void:
 	mine_iron_button.disabled = true
 	progress_bar.value = 0
@@ -155,3 +153,30 @@ func _on_auto_save_timer_timeout() -> void:
 	
 	save_file.store_string(json_text)
 	
+func load_game() -> void:
+	if not FileAccess.file_exists("user://savegame.save"):
+		return # Error! We don't have a save to load.
+		
+	var save_file = FileAccess.open("user://savegame.save", FileAccess.READ)
+	var json_string = save_file.get_as_text()
+	# Creates the helper class to interact with JSON.
+	var json = JSON.new()
+	# Check if there is any error while parsing the JSON string, skip in case of failure.
+	var parse_result = json.parse(json_string)
+	if not parse_result == OK:
+		print("JSON Parse Error: ", json.get_error_message(), " in ", save_file, " at line ", json.get_error_line())
+		return
+		
+	var save_data = json.data
+	
+	if save_data is Dictionary:
+		if "game" in save_data:
+			game_data.from_dict(save_data["game"])
+		if "upgrades" in save_data:
+			upgrade_data.from_dict(save_data["upgrades"])
+		
+
+func refresh_loaded_upgrade_state() -> void: 
+#check coal_unlock level → show/hide coal UI
+#check passive iron amount → start/stop passive timer
+	pass

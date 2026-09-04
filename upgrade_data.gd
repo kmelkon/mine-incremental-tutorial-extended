@@ -59,7 +59,6 @@ var INITIAL_UPGRADES: Dictionary = {
 var upgrades: Dictionary = INITIAL_UPGRADES.duplicate(true)
 
 func buy_upgrade(upgrade_id: StringName) -> void:
-#	max level is a real game rule, not just UI.
 	if is_upgrade_maxed(upgrade_id):
 		return 
 	
@@ -145,8 +144,23 @@ func get_iron_per_click() -> int:
 	return 1 + upgrades["iron_output"]["amount"]
 
 func to_dict() -> Dictionary:
-	return upgrades
+	var upgrade_info_to_save: Array = ["cost", "amount", "level", "time"]
+	var upgrades_to_save: Dictionary
 	
+	for upgrade_key in upgrades:
+		for key in upgrade_info_to_save:
+			if upgrades[upgrade_key].has(key):
+				upgrades_to_save[upgrade_key] = {}
+				upgrades_to_save[upgrade_key][key] = upgrades[upgrade_key][key]
+	return upgrades_to_save
+	
+func from_dict(saved_upgrades: Dictionary) -> void:
+	var initial_upgrades = INITIAL_UPGRADES.duplicate(true)
+	
+	for upgrade_key in saved_upgrades:
+		for key in saved_upgrades[upgrade_key]:
+			initial_upgrades[upgrade_key][key] = saved_upgrades[upgrade_key][key]
+	upgrades = initial_upgrades
 
 func reset_upgrades() -> void:
 	upgrades = INITIAL_UPGRADES.duplicate(true)

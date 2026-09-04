@@ -3,6 +3,7 @@ extends Resource
 
 signal resources_changed()
 
+var last_saved
 var resources: Dictionary = {
 	"iron": 0,
 	"coal": 0
@@ -31,6 +32,10 @@ func to_dict() -> Dictionary:
 		"last_saved": Time.get_unix_time_from_system(),
 		"resources": resources.duplicate(true)
 	}
+
+func from_dict(saved_game_resources: Dictionary) -> void:
+	resources = saved_game_resources["resources"]
+	last_saved = saved_game_resources["last_saved"]
 
 func reset() -> void:
 	resources["iron"] = 0
