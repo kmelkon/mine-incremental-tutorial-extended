@@ -20,6 +20,8 @@ var coal_mine_tween: Tween
 
 func _ready() -> void:
 	load_game()
+ 	# Disable automatic closing so we can save first
+	get_tree().auto_accept_quit = false
 	
 	game_data.resources_changed.connect(_on_resources_changed)
 	_on_resources_changed()
@@ -35,6 +37,14 @@ func _ready() -> void:
 	for node in get_tree().get_nodes_in_group("upgrade_buttons"):
 		var upgrade_button := node as UpgradeButtonControl
 		upgrade_button.setup(upgrade_data)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		# Call your save function here
+		save_game()
+
+		# Now allow the game to quit
+		get_tree().quit()
 
 func _on_button_pressed() -> void:
 	mine_iron_button.disabled = true
@@ -140,6 +150,9 @@ func _refresh_coal_unlock_visibility() -> void:
 
 
 func _on_auto_save_timer_timeout() -> void:
+	save_game()
+	
+func save_game() -> void:
 	var save_dict  = {
 		"version": 1,
 		"game": {},
@@ -153,7 +166,7 @@ func _on_auto_save_timer_timeout() -> void:
 	var json_text = JSON.stringify(save_dict)
 	
 	save_file.store_string(json_text)
-	
+
 func load_game() -> void:
 	if not FileAccess.file_exists("user://savegame.save"):
 		return # Error! We don't have a save to load.
