@@ -148,9 +148,9 @@ func to_dict() -> Dictionary:
 	var upgrades_to_save: Dictionary
 	
 	for upgrade_key in upgrades:
+		upgrades_to_save[upgrade_key] = {}
 		for key in upgrade_info_to_save:
 			if upgrades[upgrade_key].has(key):
-				upgrades_to_save[upgrade_key] = {}
 				upgrades_to_save[upgrade_key][key] = upgrades[upgrade_key][key]
 	return upgrades_to_save
 	
@@ -159,7 +159,14 @@ func from_dict(saved_upgrades: Dictionary) -> void:
 	
 	for upgrade_key in saved_upgrades:
 		for key in saved_upgrades[upgrade_key]:
-			initial_upgrades[upgrade_key][key] = saved_upgrades[upgrade_key][key]
+			if ["level", "amount"].has(key):
+				initial_upgrades[upgrade_key][key] = int(saved_upgrades[upgrade_key][key])
+			elif key == "cost":
+				for cost_key in saved_upgrades[upgrade_key][key]:
+					initial_upgrades[upgrade_key][key][cost_key] = int(saved_upgrades[upgrade_key][key][cost_key])
+			elif key == "time":
+				initial_upgrades[upgrade_key][key] = float(saved_upgrades[upgrade_key][key])
+	
 	upgrades = initial_upgrades
 
 func reset_upgrades() -> void:

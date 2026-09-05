@@ -113,6 +113,7 @@ func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> voi
 			passive_output_timer.start(upgrade_data.get_passive_iron_output_time())
 		
 		if upgrade_id == &"coal_unlock":
+			coal_total_label.visible = true
 			coal_progress_bar.visible = true
 			coal_mine_upgrade_button_control.visible = true
 			mine_coal_button.visible = true
@@ -174,9 +175,17 @@ func load_game() -> void:
 			game_data.from_dict(save_data["game"])
 		if "upgrades" in save_data:
 			upgrade_data.from_dict(save_data["upgrades"])
-		
+	
+	refresh_loaded_upgrade_state()
+
 
 func refresh_loaded_upgrade_state() -> void: 
-#check coal_unlock level → show/hide coal UI
-#check passive iron amount → start/stop passive timer
-	pass
+	if upgrade_data.get_upgrade("coal_unlock")["level"] >= 1:
+		coal_total_label.visible = true
+		coal_mine_upgrade_button_control.visible = true
+		coal_progress_bar.visible = true
+		mine_coal_button.visible = true
+		coal_mine_speed_upgrade_button_control.visible = true
+	
+	if upgrade_data.get_passive_iron_amount() >= 1:
+		passive_output_timer.start(upgrade_data.get_passive_iron_output_time())

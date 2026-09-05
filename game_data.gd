@@ -34,8 +34,10 @@ func to_dict() -> Dictionary:
 	}
 
 func from_dict(saved_game_resources: Dictionary) -> void:
-	resources = saved_game_resources["resources"]
-	last_saved = saved_game_resources["last_saved"]
+	for res_key in saved_game_resources["resources"]:
+		resources[res_key] = int(saved_game_resources["resources"][res_key])
+	
+	last_saved = float(saved_game_resources["last_saved"])
 
 func reset() -> void:
 	resources["iron"] = 0

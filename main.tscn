@@ -136,6 +136,7 @@ vertical_alignment = 1
 
 [node name="CoalTotalLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1680049810]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 10
 
