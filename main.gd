@@ -16,6 +16,7 @@ extends Control
 
 var game_data: GameData = GameData.new()
 var upgrade_data: UpgradeData = UpgradeData.new()
+var utils: Utils = Utils.new()
 var iron_mine_tween: Tween
 var coal_mine_tween: Tween
 
@@ -108,8 +109,8 @@ func _on_passive_output_timer_timeout() -> void:
 	_refresh_coal_unlock_visibility()
 
 func _on_resources_changed() -> void:
-	mine_label.text = "Iron: %s" % game_data.resources["iron"]
-	coal_total_label.text = "Coal: %s" % game_data.resources["coal"]
+	mine_label.text = "Iron: %s" % utils.format_number(game_data.resources["iron"])
+	coal_total_label.text = "Coal: %s" % utils.format_number(game_data.resources["coal"])
 
 	_refresh_coal_unlock_visibility()
 
@@ -201,7 +202,7 @@ func load_game() -> void:
 			var minutes := (elapsed_seconds % 3600) / 60
 			var seconds := elapsed_seconds % 60
 
-			offline_progress_label.text = "You were away for %02d:%02d:%02d and gained %s iron!" % [hours, minutes, seconds, total_passive_iron]
+			offline_progress_label.text = "You were away for %02d:%02d:%02d and gained %s iron!" % [hours, minutes, seconds, utils.format_number(total_passive_iron)]
 			offline_progress_dialog.popup_centered()
 
 	refresh_loaded_upgrade_state()
