@@ -8,6 +8,11 @@ signal upgrade_requested(upgrade_id: StringName)
 var upgrade_data: UpgradeData
 var game_data: GameData
 
+
+@export var click_scale : Vector2 = Vector2(0.9, 0.9) 
+@export var normal_scale : Vector2 = Vector2(1.0, 1.0) 
+@export var duration : float = 0.1 
+
 func setup(data: UpgradeData, shared_game_data: GameData) -> void:
 	upgrade_data = data
 	game_data = shared_game_data
@@ -18,7 +23,7 @@ func setup(data: UpgradeData, shared_game_data: GameData) -> void:
 
 func refresh() -> void:
 	var cost_parts: Array[String] = []
-	
+	self.pivot_offset = self.size / 2
 	var is_maxed = upgrade_data.is_upgrade_maxed(upgrade_id)
 	var upgrade = upgrade_data.get_upgrade(upgrade_id)
 	var is_affordable = game_data.can_afford(upgrade_data.get_upgrade_cost(upgrade_id))
@@ -62,4 +67,15 @@ func _on_upgrade_bought(bought_id: StringName) -> void:
 		refresh()
 		
 func _on_button_pressed() -> void:
+
 	upgrade_requested.emit(upgrade_id)
+
+
+func _on_button_button_down() -> void:
+	var tween = create_tween()
+	tween.tween_property(self, "scale", click_scale, duration).set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_IN_OUT)
+
+
+func _on_button_button_up() -> void:
+	var tween = create_tween()
+	tween.tween_property(self, "scale", normal_scale, duration).set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_IN_OUT)
