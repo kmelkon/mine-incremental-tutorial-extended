@@ -3,7 +3,8 @@ extends Resource
 
 signal resources_changed()
 
-var last_saved
+var last_saved: float = 0.0
+var elapsed_time: float = 0.0
 var resources: Dictionary = {
 	"iron": 0,
 	"coal": 0
@@ -34,10 +35,15 @@ func to_dict() -> Dictionary:
 	}
 
 func from_dict(saved_game_resources: Dictionary) -> void:
+	var now  = Time.get_unix_time_from_system()
 	for res_key in saved_game_resources["resources"]:
 		resources[res_key] = int(saved_game_resources["resources"][res_key])
-	
-	last_saved = float(saved_game_resources["last_saved"])
+	if not saved_game_resources.has("last_saved"):
+		last_saved = 0
+	else:
+		last_saved = float(saved_game_resources["last_saved"])
+		# max 8 hours of elapsed time to prevent excessive resource gain
+		elapsed_time = clampf(now - last_saved, 0, 28800)
 
 func reset() -> void:
 	resources["iron"] = 0

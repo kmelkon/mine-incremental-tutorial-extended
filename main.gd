@@ -11,6 +11,8 @@ extends Control
 @onready var coal_mine_upgrade_button_control: UpgradeButtonControl = %CoalMineUpgradeButtonControl
 @onready var coal_progress_bar: ProgressBar = %CoalProgressBar
 @onready var coal_mine_speed_upgrade_button_control: UpgradeButtonControl = %CoalMineSpeedUpgradeButtonControl
+@onready var offline_progress_dialog: AcceptDialog = %OfflineProgressDialog
+@onready var offline_progress_label: Label = %OfflineProgressLabel
 
 var game_data: GameData = GameData.new()
 var upgrade_data: UpgradeData = UpgradeData.new()
@@ -173,7 +175,6 @@ func load_game() -> void:
 		
 	var save_file = FileAccess.open("user://savegame.save", FileAccess.READ)
 	var json_string = save_file.get_as_text()
-	# Creates the helper class to interact with JSON.
 	var json = JSON.new()
 	# Check if there is any error while parsing the JSON string, skip in case of failure.
 	var parse_result = json.parse(json_string)
@@ -189,7 +190,22 @@ func load_game() -> void:
 		if "upgrades" in save_data:
 			upgrade_data.from_dict(save_data["upgrades"])
 	
+	if game_data.elapsed_time > 0:
+		var passive_iron_amount = upgrade_data.get_passive_iron_amount()
+		if passive_iron_amount > 0:
+			var total_passive_iron = int(passive_iron_amount * (game_data.elapsed_time / upgrade_data.get_passive_iron_output_time()))
+			game_data.add_resource("iron", total_passive_iron)
+			# TODO: format the elapsed time nicely into: under 60 seconds: 45s / under 60 minutes: 12m / under 24 hours: 3h 18m
+			var elapsed_seconds := int(game_data.elapsed_time)
+			var hours := elapsed_seconds / 3600
+			var minutes := (elapsed_seconds % 3600) / 60
+			var seconds := elapsed_seconds % 60
+
+			offline_progress_label.text = "You were away for %02d:%02d:%02d and gained %s iron!" % [hours, minutes, seconds, total_passive_iron]
+			offline_progress_dialog.popup_centered()
+
 	refresh_loaded_upgrade_state()
+	save_game()
 
 
 func refresh_loaded_upgrade_state() -> void: 
