@@ -158,6 +158,8 @@ func from_dict(saved_upgrades: Dictionary) -> void:
 	var initial_upgrades = INITIAL_UPGRADES.duplicate(true)
 	
 	for upgrade_key in saved_upgrades:
+		if not initial_upgrades.has(upgrade_key):
+			continue
 		for key in saved_upgrades[upgrade_key]:
 			if ["level", "amount"].has(key):
 				initial_upgrades[upgrade_key][key] = int(saved_upgrades[upgrade_key][key])

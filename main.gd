@@ -161,10 +161,13 @@ func save_game() -> void:
 		"game": {},
 		"upgrades": {}
 	}
-	var save_file = FileAccess.open("user://savegame.save", FileAccess.WRITE)
-	
 	save_dict["game"] = game_data.to_dict()
 	save_dict["upgrades"] = upgrade_data.to_dict()
+
+	var save_file = FileAccess.open("user://savegame.save", FileAccess.WRITE)
+	if save_file == null:
+		push_error("Error opening save file: %s" % FileAccess.get_open_error())
+		return
 	
 	var json_text = JSON.stringify(save_dict)
 	
@@ -175,6 +178,10 @@ func load_game() -> void:
 		return # Error! We don't have a save to load.
 		
 	var save_file = FileAccess.open("user://savegame.save", FileAccess.READ)
+	if save_file == null:
+		push_error("Error opening save file: %s" % FileAccess.get_open_error())
+		return
+
 	var json_string = save_file.get_as_text()
 	var json = JSON.new()
 	# Check if there is any error while parsing the JSON string, skip in case of failure.
