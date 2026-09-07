@@ -261,6 +261,7 @@ libraries/ = SubResource("AnimationLibrary_ruth0")
 ignore_time_scale = true
 
 [node name="AutoSaveTimer" type="Timer" parent="." unique_id=166770654]
+wait_time = 30.0
 autostart = true
 
 [node name="OfflineProgressDialog" type="AcceptDialog" parent="." unique_id=1003118933]

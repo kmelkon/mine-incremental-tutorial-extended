@@ -39,7 +39,7 @@ func _ready() -> void:
 	# this will set up every upgrade button we add in the future instead of doing it manually one by one like it's 1990
 	for node in get_tree().get_nodes_in_group("upgrade_buttons"):
 		var upgrade_button := node as UpgradeButtonControl
-		upgrade_button.setup(upgrade_data)
+		upgrade_button.setup(upgrade_data, game_data)
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
