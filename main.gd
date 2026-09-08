@@ -14,6 +14,8 @@ extends Control
 @onready var offline_progress_dialog: AcceptDialog = %OfflineProgressDialog
 @onready var offline_progress_label: Label = %OfflineProgressLabel
 @onready var floating_effects_overlay: Control = %FloatingEffectsOverlay
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = %AudioStreamPlayer2D
+@onready var upgrade_button_stream_player: AudioStreamPlayer2D = %UpgradeButtonStreamPlayer
 
 var game_data: GameData = GameData.new()
 var upgrade_data: UpgradeData = UpgradeData.new()
@@ -52,6 +54,7 @@ func _notification(what: int) -> void:
 
 func _on_button_pressed() -> void:
 	mine_iron_button.disabled = true
+	audio_stream_player_2d.play()
 	progress_bar.value = 0
 	var mine_speed_time = upgrade_data.get_mine_time()
 	
@@ -67,6 +70,7 @@ func _on_button_pressed() -> void:
 func _on_mine_coal_button_pressed() -> void:
 	mine_coal_button.disabled = true
 	coal_progress_bar.value = 0
+	audio_stream_player_2d.play()
 	
 	var mine_coal_speed_time = upgrade_data.get_mine_coal_time()
 	
@@ -116,6 +120,7 @@ func _on_resources_changed() -> void:
 	_refresh_coal_unlock_visibility()
 
 func _on_upgrade_button_control_upgrade_requested(upgrade_id: StringName) -> void:
+	upgrade_button_stream_player.play()
 	var cost = upgrade_data.get_upgrade_cost(upgrade_id)
 	print(upgrade_id)
 	
@@ -157,6 +162,7 @@ func _on_mine_iron_tween_complete() -> void:
 	floating_iron_amount_tween.parallel().tween_property(floating_label, "modulate:a", 0.0, 0.3)
 
 	floating_iron_amount_tween.connect("finished", Callable(floating_label, "queue_free"))
+	
 	_refresh_coal_unlock_visibility()
 
 func _on_mine_coal_tween_complete() -> void:
