@@ -13,6 +13,7 @@ extends Control
 @onready var coal_mine_speed_upgrade_button_control: UpgradeButtonControl = %CoalMineSpeedUpgradeButtonControl
 @onready var offline_progress_dialog: AcceptDialog = %OfflineProgressDialog
 @onready var offline_progress_label: Label = %OfflineProgressLabel
+@onready var floating_effects_overlay: Control = %FloatingEffectsOverlay
 
 var game_data: GameData = GameData.new()
 var upgrade_data: UpgradeData = UpgradeData.new()
@@ -138,12 +139,49 @@ func _on_mine_iron_tween_complete() -> void:
 	mine_iron_button.disabled = false
 	game_data.add_resource("iron", iron_output_per_click)
 	
+	var floating_iron_amount_tween = get_tree().create_tween()
+	var initial_pb_position = progress_bar.get_global_position() + Vector2(progress_bar.size.x, progress_bar.size.y / 2)
+
+	var floating_label = Label.new()
+	floating_label.add_theme_font_size_override("font_size", 24)
+	floating_label.add_theme_color_override("font_color", Color(1, 0.6, 1))
+	floating_label.text = "+%s" % utils.format_number(iron_output_per_click)
+	floating_effects_overlay.add_child(floating_label)
+	floating_label.global_position = initial_pb_position
+	floating_label.scale = Vector2.ZERO
+	floating_label.pivot_offset = floating_label.size / 2
+
+	floating_iron_amount_tween.tween_property(floating_label, "position", initial_pb_position + Vector2(0, -50), 0.3)
+	floating_iron_amount_tween.parallel().tween_property(floating_label, "scale", Vector2(1.5, 1.5), 0.2)
+	floating_iron_amount_tween.tween_property(floating_label, "scale", Vector2.ZERO, 0.2)
+	floating_iron_amount_tween.parallel().tween_property(floating_label, "modulate:a", 0.0, 0.3)
+
+	floating_iron_amount_tween.connect("finished", Callable(floating_label, "queue_free"))
 	_refresh_coal_unlock_visibility()
 
 func _on_mine_coal_tween_complete() -> void:
 	var coal_output_per_click = upgrade_data.get_coal_per_click()
 	mine_coal_button.disabled = false
 	game_data.add_resource("coal", coal_output_per_click)
+
+	var floating_coal_amount_tween = get_tree().create_tween()
+	var initial_pb_position = coal_progress_bar.get_global_position() + Vector2(coal_progress_bar.size.x, coal_progress_bar.size.y / 2)
+
+	var floating_label = Label.new()
+	floating_label.add_theme_font_size_override("font_size", 24)
+	floating_label.add_theme_color_override("font_color", Color(0.068, 0.673, 0.765, 1.0))
+	floating_label.text = "+%s" % utils.format_number(coal_output_per_click)
+	floating_effects_overlay.add_child(floating_label)
+	floating_label.global_position = initial_pb_position
+	floating_label.scale = Vector2.ZERO
+	floating_label.pivot_offset = floating_label.size / 2
+
+	floating_coal_amount_tween.tween_property(floating_label, "position", initial_pb_position + Vector2(0, -50), 0.3)
+	floating_coal_amount_tween.parallel().tween_property(floating_label, "scale", Vector2(1.5, 1.5), 0.2)
+	floating_coal_amount_tween.tween_property(floating_label, "scale", Vector2.ZERO, 0.2)
+	floating_coal_amount_tween.parallel().tween_property(floating_label, "modulate:a", 0.0, 0.3)
+
+	floating_coal_amount_tween.connect("finished", Callable(floating_label, "queue_free"))
 	
 func _refresh_coal_unlock_visibility() -> void:
 	coal_unlock_button_control.visible = game_data.resources["iron"] >= 700

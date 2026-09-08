@@ -7,7 +7,7 @@ signal upgrade_requested(upgrade_id: StringName)
 @export var upgrade_id: StringName
 var upgrade_data: UpgradeData
 var game_data: GameData
-
+var utils: Utils = Utils.new()
 
 @export var click_scale : Vector2 = Vector2(0.9, 0.9) 
 @export var normal_scale : Vector2 = Vector2(1.0, 1.0) 
@@ -30,7 +30,7 @@ func refresh() -> void:
 	
 	var upgrade_cost = upgrade_data.get_upgrade_cost(upgrade_id)
 	for resource in upgrade_cost:
-		cost_parts.append("%s %s" % [upgrade_cost[resource], resource])
+		cost_parts.append("%s %s" % [utils.format_number(upgrade_cost[resource]), resource])
 		
 	var cost_label = " + ".join(cost_parts)
 	

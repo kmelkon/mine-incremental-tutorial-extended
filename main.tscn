@@ -278,6 +278,12 @@ offset_top = 8.0
 offset_right = 242.0
 offset_bottom = 101.0
 
+[node name="FloatingEffectsOverlay" type="Control" parent="." unique_id=1063605213]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/MineButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MineSpace/MarginContainer/VBoxContainer/MineCoalButton" to="." method="_on_mine_coal_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Upgrades/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
